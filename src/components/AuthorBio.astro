@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+
+const { author } = Astro.props;
+
+const avatarAlt = `${author.data.name} avatar`;
+---
+
+<div class="author-bio">
+    {author.data.avatar && (
+        <div class="author-avatar">
+            <Image
+                src={author.data.avatar}
+                alt={avatarAlt}
+                width={80}
+                height={80}
+            />
+        </div>
+    )}
+
+    <div class="author-copy">
+        <h2>About the author</h2>
+        <h3>{author.data.name}</h3>
+
+        {author.data.title && <p class="author-title">{author.data.title}</p>}
+
+        <p>{author.data.bio}</p>
+
+        {author.data.socials && author.data.socials.length > 0 && (
+            <ul class="author-socials">
+                {author.data.socials.map((link) => (
+                    <li>
+                        <a href={link.url} target="_blank" rel="noreferrer noopener">
+                            {link.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
+</div>
+
+<style>
+    .author-bio {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .author-avatar {
+        flex-shrink: 0;
+    }
+
+    .author-avatar img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .author-copy h2 {
+        margin: 0 0 0.25rem;
+        font-size: 1.1rem;
+    }
+
+    .author-copy h3 {
+        margin: 0;
+        font-size: 1.4rem;
+    }
+
+    .author-title {
+        margin: 0.25rem 0 0.75rem;
+        color: #6b7280;
+    }
+
+    .author-socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+    }
+
+    .author-socials a {
+        color: #2563eb;
+        text-decoration: none;
+    }
+
+    .author-socials a:hover {
+        text-decoration: underline;
+    }
+</style>
