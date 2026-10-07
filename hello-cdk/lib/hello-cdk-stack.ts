@@ -13,8 +13,33 @@ export class helloCdkStack extends cdk.Stack {
       autoDeleteObjects: true,
     });
 
+    const rewriteDirectoryIndex = new cloudfront.Function(this, 'RewriteDirectoryIndex', {
+      code: cloudfront.FunctionCode.fromInline(`
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+
+  if (uri.endsWith('/')) {
+    request.uri += 'index.html';
+  } else if (!uri.substring(uri.lastIndexOf('/') + 1).includes('.')) {
+    request.uri += '/index.html';
+  }
+
+  return request;
+}`),
+      runtime: cloudfront.FunctionRuntime.JS_2_0,
+    });
+
     const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
-      defaultBehavior: { origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket) },
+      defaultBehavior: {
+        origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
+        functionAssociations: [
+          {
+            function: rewriteDirectoryIndex,
+            eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+          },
+        ],
+      },
       defaultRootObject: 'index.html',
     });
 
