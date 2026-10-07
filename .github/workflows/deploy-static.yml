@@ -24,6 +24,10 @@ jobs:
       - name: Build Astro Static Site
         run: npm run build
 
+      - name: Install CDK Dependencies
+        run: npm ci
+        working-directory: hello-cdk
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -33,3 +37,4 @@ jobs:
 
       - name: Deploy Infrastructure & Assets with AWS CDK
         run: npx cdk deploy --require-approval never
+        working-directory: hello-cdk
