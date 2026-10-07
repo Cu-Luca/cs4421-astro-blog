@@ -1,5 +1,7 @@
 # Astro Starter Kit: Blog
 
+WEBPAGE LINK: d3cqge6x5nm7ax.cloudfront.net/
+
 ```sh
 npm create astro@latest -- --template blog
 ```
