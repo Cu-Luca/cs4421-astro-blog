@@ -1,0 +1,98 @@
+<button class="back-to-top" type="button" aria-label="Back to top" aria-hidden="true" tabindex="-1">
+	<svg viewBox="0 0 24 24" aria-hidden="true">
+		<path d="M12 19V5m-7 7 7-7 7 7" />
+	</svg>
+</button>
+
+<style>
+	.back-to-top {
+		position: fixed;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		z-index: 10;
+		display: grid;
+		width: 3rem;
+		height: 3rem;
+		place-items: center;
+		border: 0;
+		border-radius: 50%;
+		background: var(--accent);
+		color: white;
+		box-shadow: var(--box-shadow);
+		cursor: pointer;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(0.5rem);
+		transition:
+			opacity 160ms ease,
+			transform 160ms ease,
+			visibility 160ms;
+	}
+
+	.back-to-top.is-visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.back-to-top:hover {
+		background: var(--accent-dark);
+	}
+
+	.back-to-top:focus-visible {
+		outline: 3px solid var(--accent-dark);
+		outline-offset: 3px;
+	}
+
+	svg {
+		width: 1.5rem;
+		height: 1.5rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 2;
+	}
+
+	@media (max-width: 720px) {
+		.back-to-top {
+			right: 1rem;
+			bottom: 1rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.back-to-top {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	const button = document.querySelector<HTMLButtonElement>('.back-to-top');
+
+	if (button) {
+		const updateVisibility = () => {
+			const isLongPage = document.documentElement.scrollHeight > window.innerHeight * 1.5;
+			const shouldShow = isLongPage && window.scrollY > window.innerHeight * 0.5;
+
+			button.classList.toggle('is-visible', shouldShow);
+			button.setAttribute('aria-hidden', String(!shouldShow));
+			button.tabIndex = shouldShow ? 0 : -1;
+		};
+
+		window.addEventListener('scroll', updateVisibility, { passive: true });
+		window.addEventListener('resize', updateVisibility);
+		new ResizeObserver(updateVisibility).observe(document.documentElement);
+		updateVisibility();
+
+		button.addEventListener('click', () => {
+			window.scrollTo({
+				top: 0,
+				behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+					? 'auto'
+					: 'smooth',
+			});
+		});
+	}
+</script>
