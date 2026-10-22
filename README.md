@@ -56,6 +56,15 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Deploying to AWS
+
+The site is hosted as static files in S3 behind CloudFront. Push changes to the
+`main` branch to run the GitHub Actions deployment workflow, which builds the
+site, deploys the CDK stack, uploads `dist/`, and invalidates the CloudFront
+cache. Check the workflow run in the repository's **Actions** tab if the live
+site has not updated. The repository must have the `AWS_ACCESS_KEY_ID` and
+`AWS_SECRET_ACCESS_KEY` Actions secrets configured.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
