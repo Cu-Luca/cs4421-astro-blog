@@ -1,14 +1,25 @@
-# Atlantic Fieldnotes
+# Astro Starter Kit: Blog
 
-An evolving field guide to birds and birding places along Ireland’s western
-shore. Field notes are not published yet; the site currently introduces the
-coast and a small, credited selection of local bird photography.
+WEBPAGE LINK: d2tglpuqrd98uu.cloudfront.net
 
-Website: [d2tglpuqrd98uu.cloudfront.net](https://d2tglpuqrd98uu.cloudfront.net)
+```sh
+npm create astro@latest -- --template blog
+```
+
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+Features:
+
+- ✅ Minimal styling (make it your own!)
+- ✅ 100/100 Lighthouse performance
+- ✅ SEO-friendly with canonical URLs and Open Graph data
+- ✅ Sitemap support
+- ✅ RSS Feed support
+- ✅ Markdown & MDX support
 
 ## 🚀 Project Structure
 
-The site is built with Astro. Its main folders and files are:
+Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 ├── public/
@@ -24,32 +35,13 @@ The site is built with Astro. Its main folders and files are:
 └── tsconfig.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page
-is exposed as a route based on its file name.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-Reusable site components live in `src/components/`.
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-The `src/content/` directory contains Markdown and MDX content collections.
-See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/).
-The original starter articles are retained as drafts and are not published in
-post routes or the RSS feed. Remove `draft: true` from a post when it is ready
-to publish.
+The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
 
-Static assets and the locally stored bird photographs are in `src/assets/` and
-`public/`.
-
-## Photography credits
-
-The bird photographs are used under the licenses linked with their captions:
-
-| Photograph | Photographer | License |
-| --- | --- | --- |
-| [Puffin, Skellig Michael](https://commons.wikimedia.org/wiki/File:Puffin_Skellig_Michael_2015.jpg) | Sascha Wenninger | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) |
-| [Fulmars, Clashmealcon cliffs](https://commons.wikimedia.org/wiki/File:DM2026_Fulmars_nexting_on_Clashmealcon_cliffs.jpg) | Dm4244 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
-| [Curlew, Dingle Peninsula](https://commons.wikimedia.org/wiki/File:Curlew-1013817,_Dingle_Peninsula,_Co._Kerry,_Ireland.jpg) | Maoileann | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
-| [Cormorant and heron, Tralee Bay](https://commons.wikimedia.org/wiki/File:Cormorant_%26_Heron-3091,_Tralee_Bay,_Co._Kerry,_Ireland.jpg) | Maoileann | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
-
-Images are resized for display. Captions link to each original file and license.
+Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
@@ -75,8 +67,8 @@ site has not updated. The repository must have the `AWS_ACCESS_KEY_ID` and
 
 ## 👀 Want to learn more?
 
-Check out [Astro documentation](https://docs.astro.build).
+Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
 ## Credit
 
-The base stylesheet is adapted from [Bear Blog](https://github.com/HermanMartinus/bearblog/)'s default CSS, licensed under MIT.
+This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
