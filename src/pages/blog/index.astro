@@ -1,9 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import BackToTop from '../../components/BackToTop.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const notes = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <!doctype html>
@@ -65,9 +71,30 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 				font-weight: 500;
 			}
 
+			.note-card h2 a {
+				color: inherit;
+				text-decoration: none;
+				text-underline-offset: 0.2em;
+			}
+
+			.note-card h2 a:hover {
+				text-decoration: underline;
+			}
+
 			.note-card p {
 				margin: 0;
 				color: var(--muted);
+			}
+
+			.note-meta {
+				margin-bottom: 0.8rem;
+				color: var(--muted);
+				font-size: 0.85rem;
+			}
+
+			.note-meta span + span::before {
+				margin: 0 0.45rem;
+				content: '·';
 			}
 
 			.home-link {
@@ -98,14 +125,35 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 				Observations, seasonal sightings and stories from Ireland’s western shore will find a home
 				here.
 			</p>
-			<section class="note-card" aria-labelledby="notes-status">
-				<h2 id="notes-status">The notebook is still open.</h2>
-				<p>
-					No field notes have been published yet. The first stories will appear here when they’re
-					ready.
-				</p>
-				<a class="home-link" href="/">Return to the field guide</a>
-			</section>
+			{
+				notes.length > 0 ? (
+					<section aria-label="Published field notes">
+						{notes.map((note) => (
+							<article class="note-card">
+								<h2>
+									<a href={`/blog/${note.id}/`}>{note.data.title}</a>
+								</h2>
+								<div class="note-meta">
+									<span>
+										<FormattedDate date={note.data.pubDate} />
+									</span>
+									{note.data.author && <span>By {note.data.author}</span>}
+								</div>
+								<p>{note.data.description}</p>
+							</article>
+						))}
+					</section>
+				) : (
+					<section class="note-card" aria-labelledby="notes-status">
+						<h2 id="notes-status">The notebook is still open.</h2>
+						<p>
+							No field notes have been published yet. The first stories will appear here when they’re
+							ready.
+						</p>
+						<a class="home-link" href="/">Return to the field guide</a>
+					</section>
+				)
+			}
 		</main>
 		<Footer />
 		<BackToTop />
